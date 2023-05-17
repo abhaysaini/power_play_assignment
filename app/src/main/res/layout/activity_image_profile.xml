@@ -1,4 +1,3 @@
-<!-- activity_image_profile.xml -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,14 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_back"
-        android:padding="8dp"
+        android:padding="4dp"
         />
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ic_back"
+        android:layout_marginTop="32dp"
         android:layout_above="@+id/markers_container">
 
         <ImageView
@@ -30,16 +29,77 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/markers_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:paddingTop="16dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/markers_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingTop="16dp">-->
 
-        <!-- Add your marker views dynamically here -->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/marker_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:visibility="gone"-->
+<!--            android:padding="8dp">-->
 
-    </LinearLayout>
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/marker_icon" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/marker_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Marker Title"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:layout_marginStart="8dp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/marker_details"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Marker Details"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textColor="@android:color/darker_gray"-->
+<!--                android:layout_marginStart="8dp" />-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; bottom_sheet.xml &ndash;&gt;-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/bottomSheet"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="@android:color/white"-->
+<!--        android:visibility="gone"-->
+<!--        android:padding="16dp">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/bottomSheetTitleTextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/bottomSheetDetailsTextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            />-->
+
+<!--    </LinearLayout>-->
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

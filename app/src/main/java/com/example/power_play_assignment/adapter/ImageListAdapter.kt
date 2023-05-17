@@ -15,12 +15,16 @@ import com.example.power_play_assignment.ui.ImageProfileActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ImageListAdapter : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(ImageDiffCallback()) {
+class ImageListAdapter(private val onDeleteClickListener: OnDeleteClickListener) : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(ImageDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemImageBinding.inflate(inflater, parent, false)
         return ImageViewHolder(binding)
+    }
+
+    interface OnDeleteClickListener {
+        fun onDeleteClick(image: Image)
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
@@ -40,6 +44,9 @@ class ImageListAdapter : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(Im
                 val intent = Intent(binding.root.context, ImageProfileActivity::class.java)
                 intent.putExtra("imageId", image.id)
                 binding.root.context.startActivity(intent)
+            }
+            binding.deleteDrawing.setOnClickListener {
+                onDeleteClickListener.onDeleteClick(image)
             }
         }
     }

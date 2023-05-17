@@ -16,15 +16,18 @@ import com.example.power_play_assignment.room.dao.ImageDao
 import com.example.power_play_assignment.room.dao.MarkerDao
 import com.example.power_play_assignment.room.database.DrawingDatabase
 import com.example.power_play_assignment.room.entity.Image
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener {
     lateinit var binging:ActivityMainBinding
     private val PICK_IMAGE_REQUEST = 1
     private lateinit var database: DrawingDatabase
     private lateinit var imageDao: ImageDao
     private lateinit var markerDao: MarkerDao
-    private  var imageListAdapter= ImageListAdapter()
+    private  var imageListAdapter= ImageListAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +46,11 @@ class MainActivity : AppCompatActivity() {
             adapter = imageListAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
+
     }
 
     private fun observeImages() {
         imageDao.getAllImages().observe(this) { images ->
-            // Update the adapter with the new list of images
             imageListAdapter.submitList(images)
         }
     }
@@ -98,5 +101,14 @@ class MainActivity : AppCompatActivity() {
             input.read(buffer)
             buffer
         }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onDeleteClick(image: Image) {
+        val imageDao = DrawingDatabase.getDatabase(this).imageDao()
+        GlobalScope.launch(Dispatchers.IO) {
+            imageDao.deleteImage(image)
+        }
+        observeImages()
     }
 }

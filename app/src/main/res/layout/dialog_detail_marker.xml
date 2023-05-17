@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/title_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:background="@drawable/edit_text_background"
+        android:gravity="center"
+        android:hint="Add a title" />
+
+    <EditText
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/title_edit_text"
+        android:id="@+id/description_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:background="@drawable/edit_text_background"
+        android:gravity="center"
+        android:hint="Add a Description" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_edit_text"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_background"
+        android:padding="8dp"
+        android:text="Save"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_edit_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_background"
+        android:padding="8dp"
+        android:text="Cancel"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
+

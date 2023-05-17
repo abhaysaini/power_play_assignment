@@ -20,7 +20,7 @@ data class Marker(
     val imageId: Long,
     val x: Float,
     val y: Float,
-    val markerCreationtime:Long,
+    val markerCreationTime:Long,
     val title:String,
     val description :String
 )
