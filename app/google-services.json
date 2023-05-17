@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "985547357867",
+    "project_id": "power-play-assignment-2",
+    "storage_bucket": "power-play-assignment-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985547357867:android:864a3c6187a00dfd6081ee",
+        "android_client_info": {
+          "package_name": "com.example.power_play_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985547357867-3qu4j6s6hvgeqpla759lfrfpdiftihuj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwFl0PgsvTeTtFpX9D7CU0M-L7wIEv8HE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985547357867-3qu4j6s6hvgeqpla759lfrfpdiftihuj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

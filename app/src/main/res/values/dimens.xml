@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_global">8dp</dimen>
+    <dimen name="radius_global">8dp</dimen>
+    <dimen name="padding_global">8dp</dimen>
+    <dimen name="elevation_global">8dp</dimen>
+    <dimen name="radius_bottom_sheet">16dp</dimen>
+    <dimen name="elevation_bottom_sheet">16dp</dimen>
+    <dimen name="peek_height_bottom_sheet">56dp</dimen>
+</resources>

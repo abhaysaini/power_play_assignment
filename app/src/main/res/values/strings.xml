@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Assignment</string>
+    <string name="drawing">Drawing</string>
+    <string name="marker">Marker</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="add_marker">Add Marker</string>
+    <string name="y">Y</string>
+    <string name="x">X</string>
+    <string name="pick_drawing">Pick Drawing</string>
+    <string name="name">Name</string>
+    <string name="add_drawing">Add Drawing</string>
+    <string name="editable">Editable</string>
+</resources>
