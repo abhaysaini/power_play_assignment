@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.format.DateUtils
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -20,6 +21,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener {
     lateinit var binging:ActivityMainBinding
@@ -52,6 +55,10 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
     private fun observeImages() {
         imageDao.getAllImages().observe(this) { images ->
             imageListAdapter.submitList(images)
+            images.forEach { image ->
+                val formattedTime = formatSocialTime(image.additionTime.toLong())
+                image.additionTime = formattedTime
+            }
         }
     }
 
@@ -71,7 +78,7 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
                 name = imageName,
                 uri = imageUri.toString(),
                 thumbnail = imageByteArray!!,
-                additionTime = System.currentTimeMillis()
+                additionTime = System.currentTimeMillis().toString()
             )
 
             lifecycleScope.launch {
@@ -111,4 +118,32 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
         }
         observeImages()
     }
+
+
+    private fun formatSocialTime(timestamp: Long): String {
+        val currentTime = System.currentTimeMillis()
+        val timeDifference = currentTime - timestamp
+
+        return when {
+            timeDifference < DateUtils.MINUTE_IN_MILLIS -> "few minutes ago"
+            timeDifference < DateUtils.HOUR_IN_MILLIS -> {
+                val minutes = (timeDifference / DateUtils.MINUTE_IN_MILLIS).toInt()
+                "$minutes minutes ago"
+            }
+            timeDifference < DateUtils.DAY_IN_MILLIS -> {
+                val hours = (timeDifference / DateUtils.HOUR_IN_MILLIS).toInt()
+                "$hours hours ago"
+            }
+            else -> {
+                formatAdditionTime(timestamp)
+            }
+        }
+    }
+
+    private fun formatAdditionTime(additionTime: Long): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val date = Date(additionTime)
+        return dateFormat.format(date)
+    }
+
 }

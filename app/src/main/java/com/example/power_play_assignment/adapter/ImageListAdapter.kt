@@ -3,6 +3,7 @@ package com.example.power_play_assignment.adapter
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class ImageListAdapter(private val onDeleteClickListener: OnDeleteClickListener)
 
         fun bind(image: Image) {
             binding.imageNameTextView.text = image.name
-            binding.additionTimeTextView.text = formatAdditionTime(image.additionTime)
+            binding.additionTimeTextView.text = image.additionTime.toString()
             binding.thumbnailImageView.setImageBitmap(getBitmapFromBytes(image.thumbnail))
             binding.root.setOnClickListener {
                 // Handle item click here, e.g., open image profile
@@ -59,12 +60,6 @@ class ImageListAdapter(private val onDeleteClickListener: OnDeleteClickListener)
         override fun areContentsTheSame(oldItem: Image, newItem: Image): Boolean {
             return oldItem == newItem
         }
-    }
-
-    private fun formatAdditionTime(additionTime: Long): String {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        val date = Date(additionTime)
-        return dateFormat.format(date)
     }
 
     private fun getBitmapFromBytes(bytes: ByteArray): Bitmap? {

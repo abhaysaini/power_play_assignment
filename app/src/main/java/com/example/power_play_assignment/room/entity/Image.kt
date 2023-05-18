@@ -10,5 +10,5 @@ data class Image(
     val name: String,
     val uri: String,
     val thumbnail: ByteArray,
-    val additionTime: Long
+    var additionTime: String
 )

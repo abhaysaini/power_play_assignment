@@ -29,46 +29,15 @@
 
     </ScrollView>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/markers_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:orientation="vertical"-->
-<!--        android:paddingTop="16dp">-->
+    <LinearLayout
+        android:id="@+id/markers_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/marker_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:visibility="gone"-->
-<!--            android:padding="8dp">-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="24dp"-->
-<!--                android:layout_height="24dp"-->
-<!--                android:src="@drawable/marker_icon" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/marker_title"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Marker Title"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:layout_marginStart="8dp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/marker_details"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Marker Details"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textColor="@android:color/darker_gray"-->
-<!--                android:layout_marginStart="8dp" />-->
-
-<!--        </LinearLayout>-->
+        </LinearLayout>
 
 <!--    </LinearLayout>-->
 

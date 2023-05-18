@@ -7,9 +7,8 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import com.example.power_play_assignment.R
@@ -79,9 +78,11 @@ class ImageProfileActivity : AppCompatActivity() {
                 Log.i("abhay","Enter into double tap  function")
                 Log.i("abhay","$x" + " $y")
 
+                showMarkerInputDialog(x, y)
+
                 // Create a new marker object with the provided title, details, and coordinates
-                val newMarker = Marker(imageId = image.id,x= x,y= y,markerCreationTime= System.currentTimeMillis(),title= "title",description= "details")
-                insertMarkerIntoDatabase(newMarker)
+//                val newMarker = Marker(imageId = image.id,x= x,y= y,markerCreationTime= System.currentTimeMillis(),title= "title",description= "details")
+//                insertMarkerIntoDatabase(newMarker)
 
                 // Create and add the marker view to the markers container
 
@@ -94,6 +95,42 @@ class ImageProfileActivity : AppCompatActivity() {
             gestureDetector.onTouchEvent(event)
             true
         }
+
+        val markersLiveData = retrieveMarkersFromDatabase(image.id)
+        markersLiveData.observe(this) { markers ->
+
+            binding.markersContainer.removeAllViews()
+
+            // Add all the markers to the view
+            for (marker in markers) {
+                val markerView = createMarkerView(marker)
+                binding.markersContainer.addView(markerView)
+            }
+            // ...
+
+            // Add click listeners to the marker views
+            for (i in 0 until binding.markersContainer.childCount) {
+                val markerView = binding.markersContainer.getChildAt(i)
+                markerView.setOnClickListener {
+                    val marker = markerView.tag as Marker
+                    showMarkerDetailsDialog(marker)
+                }
+            }
+        }
+    }
+
+    private fun showMarkerDetailsDialog(marker: Marker) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_marker_details, null)
+        val titleTextView = dialogView.findViewById<TextView>(R.id.titleTextView)
+        val detailsTextView = dialogView.findViewById<TextView>(R.id.detailsTextView)
+        titleTextView.text = marker.title
+        detailsTextView.text = marker.description
+
+        AlertDialog.Builder(this)
+            .setTitle("Marker Details")
+            .setView(dialogView)
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     fun insertMarkerIntoDatabase(newMarker: Marker) {
@@ -112,53 +149,53 @@ class ImageProfileActivity : AppCompatActivity() {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 
-//
-//    private fun showCommentDialog(x: Float, y: Float) {
-//        val dialog = Dialog(this)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setContentView(R.layout.dialog_detail_marker)
-//
-//        val layoutParams = WindowManager.LayoutParams()
-//        layoutParams.copyFrom(dialog.window?.attributes)
-//        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
-//        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
-//        layoutParams.x = x.toInt()
-//        layoutParams.y = y.toInt()
-//
-//        val editTextTitle = dialog.findViewById<EditText>(R.id.title_edit_text)
-//        val editTextDesc = dialog.findViewById<EditText>(R.id.description_edit_text)
-//        val buttonSave = dialog.findViewById<Button>(R.id.save_button)
-//        val buttonCancel = dialog.findViewById<Button>(R.id.cancel_button)
-//
-//        buttonSave.setOnClickListener {
-//            val title = editTextTitle.text.toString()
-//            val desc = editTextDesc.text.toString()
-//            if (title.isNotEmpty()) {
-//                val marker = CommentMarker(x, y, title, true)
-//                commentMarkers.add(marker)
-////                val customView = layoutInflater.inflate(R.layout.layout_comment, null)
-////                imageView.addMarker(marker, customView)
-//                dialog.dismiss()
-//            } else {
-//                Toast.makeText(this, "Please enter a title", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            if (desc.isNotEmpty()) {
-//                val marker = CommentMarker(x, y, title, true)
-//                commentMarkers.add(marker)
-////                val customView = layoutInflater.inflate(R.layout.layout_comment, null)
-////                imageView.addMarker(marker, customView)
-//                dialog.dismiss()
-//            } else {
-//                Toast.makeText(this, "Please enter a title", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//        buttonCancel.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//
-//        dialog.show()
-//        dialog.window?.attributes = layoutParams
-//    }
+    private fun showMarkerInputDialog(x: Float, y: Float) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_marker_input, null)
+        val titleEditText = dialogView.findViewById<EditText>(R.id.editTextTitle)
+        val detailsEditText = dialogView.findViewById<EditText>(R.id.editTextDetails)
+
+        AlertDialog.Builder(this)
+            .setTitle("Add Marker")
+            .setView(dialogView)
+            .setPositiveButton("Add") { _, _ ->
+                val title = titleEditText.text.toString()
+                val details = detailsEditText.text.toString()
+
+                // Create a new marker object with the provided title, details, and coordinates
+                val newMarker = Marker(
+                    imageId = image.id,
+                    x = x,
+                    y = y,
+                    markerCreationTime = System.currentTimeMillis(),
+                    title = title,
+                    description = details
+                )
+                insertMarkerIntoDatabase(newMarker)
+
+                // Create and add the marker view to the markers container
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun createMarkerView(marker: Marker): View {
+        val markerView = layoutInflater.inflate(R.layout.marker_item, null)
+        val layoutParams = RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.leftMargin = marker.x.toInt()
+        layoutParams.topMargin = marker.y.toInt()
+        markerView.layoutParams = layoutParams
+
+        // Set the pin icon
+        val pinImageView = markerView.findViewById<ImageView>(R.id.pinImageView)
+        pinImageView.setImageResource(R.drawable.pin_icon)
+
+        // Store the marker data in the tag of the markerView
+        markerView.tag = marker
+
+        return markerView
+    }
+
 }
