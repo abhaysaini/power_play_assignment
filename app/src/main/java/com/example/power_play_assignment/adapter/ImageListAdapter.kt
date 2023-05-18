@@ -41,7 +41,6 @@ class ImageListAdapter(private val onDeleteClickListener: OnDeleteClickListener)
             binding.additionTimeTextView.text = image.additionTime.toString()
             binding.thumbnailImageView.setImageBitmap(getBitmapFromBytes(image.thumbnail))
             binding.root.setOnClickListener {
-                // Handle item click here, e.g., open image profile
                 val intent = Intent(binding.root.context, ImageProfileActivity::class.java)
                 intent.putExtra("imageId", image.id)
                 binding.root.context.startActivity(intent)

@@ -2,6 +2,7 @@ package com.example.power_play_assignment.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.power_play_assignment.room.database.DrawingDatabase
@@ -15,4 +16,7 @@ interface MarkerDao {
 
     @Query("SELECT * FROM markers WHERE imageId = :imageId")
     fun getMarkersForImage(imageId: Long): LiveData<List<Marker>>
+
+    @Delete
+    suspend fun deleteMarker(marker: Marker)
 }

@@ -9,25 +9,15 @@
         android:id="@+id/ic_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_back"
         android:padding="4dp"
-        />
+        android:src="@drawable/ic_back" />
 
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <ImageView
+        android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
-        android:layout_above="@+id/markers_container">
-
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter" />
 
     <LinearLayout
         android:id="@+id/markers_container"
@@ -37,38 +27,5 @@
         android:orientation="vertical"
         android:paddingTop="16dp">
 
-        </LinearLayout>
-
-<!--    </LinearLayout>-->
-
-<!--    &lt;!&ndash; bottom_sheet.xml &ndash;&gt;-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/bottomSheet"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:background="@android:color/white"-->
-<!--        android:visibility="gone"-->
-<!--        android:padding="16dp">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/bottomSheetTitleTextView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textStyle="bold" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/bottomSheetDetailsTextView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textColor="@color/black"-->
-<!--            />-->
-
-<!--    </LinearLayout>-->
-
-
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

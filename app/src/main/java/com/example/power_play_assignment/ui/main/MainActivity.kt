@@ -1,4 +1,4 @@
-package com.example.power_play_assignment
+package com.example.power_play_assignment.ui.main
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,18 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.format.DateUtils
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.example.power_play_assignment.adapter.ImageListAdapter
 import com.example.power_play_assignment.databinding.ActivityMainBinding
 import com.example.power_play_assignment.room.dao.ImageDao
 import com.example.power_play_assignment.room.dao.MarkerDao
 import com.example.power_play_assignment.room.database.DrawingDatabase
 import com.example.power_play_assignment.room.entity.Image
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import com.example.power_play_assignment.viewModel.ImageListViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,20 +25,17 @@ import java.util.*
 class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener {
     lateinit var binging:ActivityMainBinding
     private val PICK_IMAGE_REQUEST = 1
-    private lateinit var database: DrawingDatabase
-    private lateinit var imageDao: ImageDao
-    private lateinit var markerDao: MarkerDao
     private  var imageListAdapter= ImageListAdapter(this)
+    private lateinit var viewModel: ImageListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binging = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binging.root)
-        database = Room.databaseBuilder(applicationContext, DrawingDatabase::class.java, "drawing-db")
-            .build()
-        imageDao = database.imageDao()
-        markerDao = database.markerDao()
+
+        viewModel = ViewModelProvider(this)[ImageListViewModel::class.java]
         observeImages()
+
         binging.addDrawing.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
@@ -53,7 +48,7 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
     }
 
     private fun observeImages() {
-        imageDao.getAllImages().observe(this) { images ->
+        viewModel.imagesLiveData.observe(this) { images ->
             imageListAdapter.submitList(images)
             images.forEach { image ->
                 val formattedTime = formatSocialTime(image.additionTime.toLong())
@@ -61,6 +56,7 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
             }
         }
     }
+
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -81,11 +77,7 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
                 additionTime = System.currentTimeMillis().toString()
             )
 
-            lifecycleScope.launch {
-                val imageId = imageDao.insertImage(image)
-//                imageDao.insertImage(image)
-                imageListAdapter.notifyDataSetChanged()
-            }
+            viewModel.insertImage(image)
         }
     }
 
@@ -110,13 +102,8 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onDeleteClick(image: Image) {
-        val imageDao = DrawingDatabase.getDatabase(this).imageDao()
-        GlobalScope.launch(Dispatchers.IO) {
-            imageDao.deleteImage(image)
-        }
-        observeImages()
+        viewModel.deleteImage(image)
     }
 
 

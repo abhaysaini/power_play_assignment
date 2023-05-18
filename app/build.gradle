@@ -61,4 +61,8 @@ dependencies {
 
     // Optional: RxJava support for Room
     implementation "androidx.room:room-rxjava2:2.5.1"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+
 }
