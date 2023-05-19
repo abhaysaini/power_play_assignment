@@ -121,6 +121,11 @@ class MainActivity : AppCompatActivity() ,ImageListAdapter.OnDeleteClickListener
                 val hours = (timeDifference / DateUtils.HOUR_IN_MILLIS).toInt()
                 "$hours hours ago"
             }
+
+            timeDifference > DateUtils.DAY_IN_MILLIS -> {
+                val days = (timeDifference / DateUtils.DAY_IN_MILLIS).toInt()
+                "$days days ago"
+            }
             else -> {
                 formatAdditionTime(timestamp)
             }

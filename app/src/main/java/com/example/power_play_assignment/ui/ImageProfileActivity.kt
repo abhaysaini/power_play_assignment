@@ -17,10 +17,13 @@ import com.example.power_play_assignment.databinding.ActivityImageProfileBinding
 import com.example.power_play_assignment.room.database.DrawingDatabase
 import com.example.power_play_assignment.room.entity.Image
 import com.example.power_play_assignment.room.entity.Marker
+import com.example.power_play_assignment.ui.bottomsheet.MarkerDetailBottomSheet
 import com.example.power_play_assignment.viewModel.ImageProfileViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ImageProfileActivity : AppCompatActivity() {
 
@@ -106,6 +109,11 @@ class ImageProfileActivity : AppCompatActivity() {
                 val markerView = binding.markersContainer.getChildAt(i)
                 markerView.setOnClickListener {
                     val marker = markerView.tag as Marker
+
+                    /*To be implemented
+                    val bottomSheet = MarkerDetailBottomSheet()
+                    bottomSheet.showMarkerDetailsDialog(marker)
+                    */
                     showMarkerDetailsDialog(marker)
                 }
             }
@@ -116,8 +124,10 @@ class ImageProfileActivity : AppCompatActivity() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_marker_details, null)
         val titleTextView = dialogView.findViewById<TextView>(R.id.titleTextView)
         val detailsTextView = dialogView.findViewById<TextView>(R.id.detailsTextView)
+        val creationTime = dialogView.findViewById<TextView>(R.id.creationTimeTextView)
         titleTextView.text = marker.title
         detailsTextView.text = marker.description
+        creationTime.text = marker.markerCreationTime
 
         AlertDialog.Builder(this)
             .setTitle("Marker Details")
@@ -154,7 +164,7 @@ class ImageProfileActivity : AppCompatActivity() {
                     imageId = image.id,
                     x = x,
                     y = y,
-                    markerCreationTime = System.currentTimeMillis(),
+                    markerCreationTime = formatAdditionTime(System.currentTimeMillis()),
                     title = title,
                     description = details
                 )
@@ -183,4 +193,9 @@ class ImageProfileActivity : AppCompatActivity() {
         return markerView
     }
 
+    private fun formatAdditionTime(additionTime: Long): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val date = Date(additionTime)
+        return dateFormat.format(date)
+    }
 }

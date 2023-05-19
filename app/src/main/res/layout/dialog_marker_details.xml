@@ -20,4 +20,12 @@
         android:layout_height="wrap_content"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/creationTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:paddingEnd="8dp"
+        android:textSize="14sp" />
+
 </LinearLayout>

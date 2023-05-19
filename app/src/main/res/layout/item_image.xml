@@ -7,60 +7,69 @@
             type="com.example.power_play_assignment.room.entity.Image" />
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/thumbnailImageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder_image" />
-
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        android:layout_margin="8dp"
+        >
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/imageNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sample"
-                android:padding="8dp"
-                android:textSize="16sp"
-                android:textFontWeight="600"
-                />
-
-            <TextView
-                android:id="@+id/additionTimeTextView"
-                android:layout_width="match_parent"
-                android:padding="4dp"
-                android:layout_height="wrap_content"
-                android:text="  HH::MM"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="0dp"
-            android:layout_weight="0.1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
             <ImageView
-                android:id="@+id/delete_drawing"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:padding="2dp"
-                android:src="@drawable/ic_delete"
-                app:tint="@color/design_default_color_primary" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </LinearLayout>
+                android:id="@+id/thumbnailImageView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_image" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/imageNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sample"
+                    android:padding="8dp"
+                    android:textSize="16sp"
+                    android:textFontWeight="600"
+                    />
+
+                <TextView
+                    android:id="@+id/additionTimeTextView"
+                    android:layout_width="match_parent"
+                    android:padding="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="  HH::MM"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_weight="0.1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:id="@+id/delete_drawing"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@color/design_default_color_primary" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </layout>
